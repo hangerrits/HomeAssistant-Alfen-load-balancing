@@ -1,0 +1,3 @@
+modbus_reader:
+  module: modbus_reader
+  class: ModbusReader
