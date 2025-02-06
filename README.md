@@ -3,6 +3,10 @@ Load balancing in HomeAssistant for Alfen charger
 
 For 3 phases charger on 16A group in an installation of 3*25A
 
+Writes to charger whenever max_charger_current changes,
+and each 5 minutes so that the value stays active
+and prevent the charger to fall back to safe current
+
 # Prerequisites 
 - DSMR reader add on: https://github.com/sanderdw/hassio-addons/tree/master/dsmr_reader
 - Mosquitto broker add on: https://github.com/home-assistant/addons/tree/master/mosquitto
