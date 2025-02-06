@@ -1,0 +1,77 @@
+modbus:
+  - name: charger
+    type: tcp
+    host: YOUR CHARGER IP
+    port: 502
+    sensors:
+      - name: charger_name
+        slave: 200
+        address: 100
+        count: 17
+        data_type: string
+      - name: charger_temperature
+        slave: 200
+        address: 1102
+        data_type: float32
+        unit_of_measurement: °C
+      - name: charger_active_max_current
+        slave: 200
+        address: 1100
+        data_type: float32
+        unit_of_measurement: A
+      - name: charger_real_power_sum
+        slave: 1
+        address: 344
+        data_type: float32
+        unit_of_measurement: W
+      - name: charger_mode3_state
+        slave: 1
+        address: 1201
+        count: 5
+        data_type: string
+        scan_interval: 5
+      - name: charger_actual_applied_maxcurrent
+        slave: 1
+        address: 1206
+        data_type: float32
+        unit_of_measurement: A
+      - name: charger_modbus_maxcurrent
+        slave: 1
+        address: 1210
+        data_type: float32
+        unit_of_measurement: A
+      - name: charger_current_l1
+        slave: 1
+        address: 320
+        data_type: float32
+        unit_of_measurement: A
+      - name: charger_current_l2
+        slave: 1
+        address: 322
+        data_type: float32
+        unit_of_measurement: A
+      - name: charger_current_l3
+        slave: 1
+        address: 324
+        data_type: float32
+        unit_of_measurement: A
+      - name: charger_socket1_current_valid_time
+        slave: 1
+        address: 1208
+        data_type: uint32
+        unit_of_measurement: s
+
+
+
+template:
+  - sensor:
+      - name: "Max Charger Current"
+        unit_of_measurement: "A"
+        state: >
+          {% set total_max = [ states('sensor.dsmr_reading_phase_power_current_l1') | float(0),
+                               states('sensor.dsmr_reading_phase_power_current_l2') | float(0),
+                               states('sensor.dsmr_reading_phase_power_current_l3') | float(0) ] | max %}
+          {% set charger_max = [ states('sensor.charger_current_l1') | float(0),
+                                 states('sensor.charger_current_l2') | float(0),
+                                 states('sensor.charger_current_l3') | float(0) ] | max %}
+          {{ [16, 25 - (total_max - charger_max)] | min }}
