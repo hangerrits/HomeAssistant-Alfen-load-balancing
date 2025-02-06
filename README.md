@@ -1,4 +1,4 @@
-# HomeAssistant-Alfen-load-balancing
+# HomeAssistant Alfen load balancing
 Load balancing in HomeAssistant for Alfen charger
 
 For 3 phases charger on 16A group in an installation of 3*25A
