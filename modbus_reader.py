@@ -54,7 +54,7 @@ class ModbusReader(hass.Hass):
             # Send values to Modbus
             await self.call_service(
                 "modbus/write_register",
-                hub="laadpaal",  # Must match configuration.yaml
+                hub="charger",  # Must match configuration.yaml
                 unit=1,          # Slave ID
                 address=1210,    # The Modbus register for max current
                 value=[msb, lsb]
