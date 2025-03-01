@@ -1,7 +1,7 @@
 # HomeAssistant Alfen load balancing
 Load balancing in HomeAssistant for Alfen charger
 
-For 3 phases charger on 16A group in an installation of 3*25A
+Looks at the power usage in home and calculates the max available power for the charger
 
 Writes to charger whenever max_charger_current changes,
 and each 5 minutes so that the value stays active
